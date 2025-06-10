@@ -29,12 +29,11 @@ class LandingActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java) // Replace with your LoginActivity
             startActivity(intent)
         }
-/*
+
         // Handle Sign Up button click
         signupButton.setOnClickListener {
-            val intent = Intent(this, SignupActivity::class.java) // Replace with your SignupActivity
+            val intent = Intent(this, UserTypeSelectionActivity::class.java) // Replace with your SignupActivity
             startActivity(intent)
         }
-  */
     }
 }
