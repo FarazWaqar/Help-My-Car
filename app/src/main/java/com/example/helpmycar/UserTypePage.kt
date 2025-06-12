@@ -34,14 +34,17 @@ class UserTypeSelectionActivity : AppCompatActivity() {
         backArrow.setOnClickListener {
             finish() // or navigate to LandingActivity if needed
         }
-/*
+
         nextButton.setOnClickListener {
             if (selectedUserType != null) {
                 val intent = when (selectedUserType) {
-                    "Customer" -> Intent(this, CustomerSignupActivity::class.java)
+                    "Customer" -> Intent(this, CustomerSignUpActivity::class.java)
+                    /*
                     "Mechanic" -> Intent(this, MechanicSignupActivity::class.java)
                     "Parts Supplier" -> Intent(this, SupplierSignupActivity::class.java)
                     "Car Wash Provider" -> Intent(this, CarWashSignupActivity::class.java)
+
+                     */
                     else -> null
                 }
 
@@ -51,6 +54,6 @@ class UserTypeSelectionActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please select a user type", Toast.LENGTH_SHORT).show()
             }
 
- */
         }
+    }
 }

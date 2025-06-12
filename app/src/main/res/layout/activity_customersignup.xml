@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CustomerSignupActivity">
+    tools:context=".CustomerSignUpActivity">
 
     <!-- Top Bar with Back Arrow and Title -->
     <LinearLayout
@@ -23,9 +23,8 @@
             android:id="@+id/backArrow"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_baseline_arrow_back_24"
-            android:layout_gravity="center_vertical"
-            android:tint="@android:color/white"/>
+            android:src="@drawable/back_arrow"
+            android:layout_gravity="center_vertical"/>
 
         <TextView
             android:id="@+id/titleText"
@@ -50,11 +49,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-
-
     <!-- Input Fields -->
     <LinearLayout
-        android:id="@+id/inputFields"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -65,50 +61,56 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <EditText
+            android:id="@+id/editTextName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="Name"
-            android:background="@drawable/edittext_rounded"
+            android:background="@drawable/edittext_rounded_border"
             android:padding="10dp"
             android:layout_marginTop="10dp"/>
 
         <EditText
+            android:id="@+id/editTextPhone"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="Phone no."
-            android:background="@drawable/edittext_rounded"
+            android:background="@drawable/edittext_rounded_border"
             android:padding="10dp"
             android:layout_marginTop="10dp"/>
 
         <EditText
+            android:id="@+id/editTextCarModel"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="Car model"
-            android:background="@drawable/edittext_rounded"
+            android:background="@drawable/edittext_rounded_border"
             android:padding="10dp"
             android:layout_marginTop="10dp"/>
 
         <EditText
+            android:id="@+id/editTextMileage"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="Mileage"
-            android:background="@drawable/edittext_rounded"
+            android:background="@drawable/edittext_rounded_border"
             android:padding="10dp"
             android:layout_marginTop="10dp"/>
 
         <EditText
+            android:id="@+id/editTextLastMaintenance"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="Last maintenance"
-            android:background="@drawable/edittext_rounded"
+            android:background="@drawable/edittext_rounded_border"
             android:padding="10dp"
             android:layout_marginTop="10dp"/>
 
         <EditText
+            android:id="@+id/editTextDailyDriving"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="Daily driving"
-            android:background="@drawable/edittext_rounded"
+            android:background="@drawable/edittext_rounded_border"
             android:padding="10dp"
             android:layout_marginTop="10dp"/>
     </LinearLayout>

@@ -15,7 +15,7 @@
         <activity android:name=".LandingActivity"/>
         <activity android:name="LoginActivity"/>
         <activity android:name=".UserTypeSelectionActivity"/>
-        <activity android:name=".CustomerSignupActivity"/>
+        <activity android:name=".CustomerSignUpActivity"/>
         <activity
             android:name=".SplashActivity"
             android:exported="true">
