@@ -39,9 +39,11 @@ class UserTypeSelectionActivity : AppCompatActivity() {
             if (selectedUserType != null) {
                 val intent = when (selectedUserType) {
                     "Customer" -> Intent(this, CustomerSignUpActivity::class.java)
-                    /*
+
                     "Mechanic" -> Intent(this, MechanicSignupActivity::class.java)
+
                     "Parts Supplier" -> Intent(this, SupplierSignupActivity::class.java)
+                    /*
                     "Car Wash Provider" -> Intent(this, CarWashSignupActivity::class.java)
 
                      */

@@ -16,6 +16,8 @@
         <activity android:name="LoginActivity"/>
         <activity android:name=".UserTypeSelectionActivity"/>
         <activity android:name=".CustomerSignUpActivity"/>
+        <activity android:name=".MechanicSignupActivity"/>
+        <activity android:name=".SupplierSignupActivity"/>
         <activity
             android:name=".SplashActivity"
             android:exported="true">
@@ -25,6 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
