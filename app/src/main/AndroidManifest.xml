@@ -18,6 +18,12 @@
         <activity android:name=".CustomerSignUpActivity"/>
         <activity android:name=".MechanicSignupActivity"/>
         <activity android:name=".SupplierSignupActivity"/>
+        <activity android:name=".CarWashProviderRegistrationActivity"/>
+        <activity android:name=".HomeActivity"/>
+        <activity android:name=".ChatbotActivity"/>
+        <activity android:name=".MaintenanceReminderActivity"/>
+        <activity android:name=".NearbyMechanicsActivity"/>
+        <activity android:name=".RequestServiceActivity"/>
         <activity
             android:name=".SplashActivity"
             android:exported="true">

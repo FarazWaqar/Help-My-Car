@@ -43,10 +43,10 @@ class UserTypeSelectionActivity : AppCompatActivity() {
                     "Mechanic" -> Intent(this, MechanicSignupActivity::class.java)
 
                     "Parts Supplier" -> Intent(this, SupplierSignupActivity::class.java)
-                    /*
-                    "Car Wash Provider" -> Intent(this, CarWashSignupActivity::class.java)
 
-                     */
+                    "Car Wash Provider" -> Intent(this, CarWashProviderRegistrationActivity::class.java)
+
+
                     else -> null
                 }
 
