@@ -101,7 +101,7 @@
             android:id="@+id/editTextWorkshop"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Workshop Info."
+            android:hint="Workshop Info"
             android:background="@drawable/edittext_rounded_border"
             android:padding="12dp"
             android:textSize="14sp"
@@ -112,6 +112,28 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="Expertise"
+            android:background="@drawable/edittext_rounded_border"
+            android:padding="12dp"
+            android:textSize="14sp"
+            android:layout_marginTop="10dp"/>
+
+        <EditText
+            android:id="@+id/editTextEmail"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/edittext_rounded_border"
+            android:padding="12dp"
+            android:textSize="14sp"
+            android:layout_marginTop="10dp"/>
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Password"
+            android:inputType="textPassword"
             android:background="@drawable/edittext_rounded_border"
             android:padding="12dp"
             android:textSize="14sp"

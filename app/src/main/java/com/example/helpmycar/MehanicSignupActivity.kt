@@ -7,9 +7,9 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-// import com.google.firebase.auth.FirebaseAuth
-// import com.google.firebase.database.FirebaseDatabase
-// import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 
 class MechanicSignupActivity : AppCompatActivity() {
 
@@ -17,27 +17,30 @@ class MechanicSignupActivity : AppCompatActivity() {
     private val IMAGE_PICK_CODE = 1001
     private var selectedImageUri: Uri? = null
 
-    // Firebase setup (commented for now)
-    // private lateinit var auth: FirebaseAuth
-    // private val database = FirebaseDatabase.getInstance().getReference("Mechanics")
-    // private val storage = FirebaseStorage.getInstance().reference.child("mechanic_profiles")
+    private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var storage: FirebaseStorage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mechanic_signup)
 
-        // UI Component Bindings
+        // UI Bindings
         profileImage = findViewById(R.id.profileImage)
         val addImageIcon = findViewById<ImageView>(R.id.addImageIcon)
         val nameEditText = findViewById<EditText>(R.id.editTextName)
         val cnicEditText = findViewById<EditText>(R.id.editTextCNIC)
         val workshopEditText = findViewById<EditText>(R.id.editTextWorkshop)
         val expertiseEditText = findViewById<EditText>(R.id.editTextExpertise)
+        val emailEditText = findViewById<EditText>(R.id.editTextEmail)
+        val passwordEditText = findViewById<EditText>(R.id.editTextPassword)
         val nextButton = findViewById<Button>(R.id.nextButton)
         val backArrow = findViewById<ImageView>(R.id.backArrow)
 
-        // Firebase init (commented for now)
-        // auth = FirebaseAuth.getInstance()
+        // Firebase Init
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+        storage = FirebaseStorage.getInstance()
 
         addImageIcon.setOnClickListener {
             pickImageFromGallery()
@@ -52,51 +55,59 @@ class MechanicSignupActivity : AppCompatActivity() {
             val cnic = cnicEditText.text.toString().trim()
             val workshop = workshopEditText.text.toString().trim()
             val expertise = expertiseEditText.text.toString().trim()
+            val email = emailEditText.text.toString().trim()
+            val password = passwordEditText.text.toString().trim()
 
-            if (name.isEmpty() || cnic.isEmpty() || workshop.isEmpty() || expertise.isEmpty()) {
+            if (name.isEmpty() || cnic.isEmpty() || workshop.isEmpty() || expertise.isEmpty() || email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Placeholder next step (will be replaced with Firebase logic later)
-            Toast.makeText(this, "Mechanic info collected. Firebase integration pending.", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, MechanicSignupActivity::class.java))  // Make sure this activity exists
+            auth.createUserWithEmailAndPassword(email, password)
+                .addOnSuccessListener {
+                    val uid = auth.currentUser?.uid ?: return@addOnSuccessListener
 
-            /*
-            val userId = auth.currentUser?.uid
-            val mechanicData = mapOf(
-                "name" to name,
-                "cnic" to cnic,
-                "workshop" to workshop,
-                "expertise" to expertise
-            )
+                    fun saveDataToFirestore(imageUrl: String?) {
+                        val mechanicData = hashMapOf(
+                            "name" to name,
+                            "cnic" to cnic,
+                            "workshop" to workshop,
+                            "expertise" to expertise,
+                            "email" to email,
+                            "profileImageUrl" to imageUrl
+                        )
 
-            if (selectedImageUri != null) {
-                val imageRef = storage.child("$userId.jpg")
-                imageRef.putFile(selectedImageUri!!)
-                    .addOnSuccessListener {
-                        imageRef.downloadUrl.addOnSuccessListener { uri ->
-                            val mechanicWithImage = mechanicData + ("profileImageUrl" to uri.toString())
-                            userId?.let {
-                                database.child(it).setValue(mechanicWithImage)
-                                    .addOnSuccessListener {
-                                        Toast.makeText(this, "Signup success", Toast.LENGTH_SHORT).show()
-                                        startActivity(Intent(this, MechanicSignupStep2Activity::class.java))
-                                        finish()
-                                    }
-                                    .addOnFailureListener {
-                                        Toast.makeText(this, "DB save failed", Toast.LENGTH_SHORT).show()
-                                    }
+                        firestore.collection("Mechanics").document(uid)
+                            .set(mechanicData)
+                            .addOnSuccessListener {
+                                Toast.makeText(this, "Signup successful", Toast.LENGTH_SHORT).show()
+                                startActivity(Intent(this, HomeActivity::class.java))
+                                finish()
                             }
-                        }
+                            .addOnFailureListener {
+                                Toast.makeText(this, "Failed to save data", Toast.LENGTH_SHORT).show()
+                            }
                     }
-                    .addOnFailureListener {
-                        Toast.makeText(this, "Image upload failed", Toast.LENGTH_SHORT).show()
+
+                    if (selectedImageUri != null) {
+                        val imageRef = storage.reference.child("mechanic_profiles/$uid.jpg")
+                        imageRef.putFile(selectedImageUri!!)
+                            .addOnSuccessListener {
+                                imageRef.downloadUrl.addOnSuccessListener { uri ->
+                                    saveDataToFirestore(uri.toString())
+                                }
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(this, "Image upload failed", Toast.LENGTH_SHORT).show()
+                                saveDataToFirestore(null)
+                            }
+                    } else {
+                        saveDataToFirestore(null)
                     }
-            } else {
-                Toast.makeText(this, "Please select a profile image", Toast.LENGTH_SHORT).show()
-            }
-            */
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Signup failed: ${it.message}", Toast.LENGTH_SHORT).show()
+                }
         }
     }
 
@@ -108,7 +119,6 @@ class MechanicSignupActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if (requestCode == IMAGE_PICK_CODE && resultCode == Activity.RESULT_OK && data != null) {
             selectedImageUri = data.data
             profileImage.setImageURI(selectedImageUri)

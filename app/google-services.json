@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "741236616175",
+    "project_id": "help-my-car-aefe5",
+    "storage_bucket": "help-my-car-aefe5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:741236616175:android:8eb3970f85019fc31be41a",
+        "android_client_info": {
+          "package_name": "com.example.helpmycar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCN0uuaK55g3qNruLGQ_at58VNFDaVbOVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
