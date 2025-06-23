@@ -1,49 +1,82 @@
 package com.example.helpmycar
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-// import com.google.firebase.database.FirebaseDatabase
+// Firebase imports (commented)
+// import com.google.firebase.auth.FirebaseAuth
+// import com.google.firebase.firestore.FirebaseFirestore
 
 class SupplierSignupActivity : AppCompatActivity() {
+
+    private lateinit var shopNameEditText: EditText
+    private lateinit var ownerNameEditText: EditText
+    private lateinit var phoneEditText: EditText
+    private lateinit var addressEditText: EditText
+    private lateinit var cnicEditText: EditText
+    private lateinit var signupButton: Button
+    private lateinit var backArrow: ImageView
+
+    // Firebase instances (commented)
+    // private lateinit var auth: FirebaseAuth
+    // private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_supplier_signup)
 
-        val shopEditText = findViewById<EditText>(R.id.editTextShopDetails)
-        val deliveryEditText = findViewById<EditText>(R.id.editTextDeliveryArea)
-        val nextButton = findViewById<Button>(R.id.nextButton)
-        val backArrow = findViewById<ImageView>(R.id.backArrow)
+        // Initialize views
+        shopNameEditText = findViewById(R.id.editTextShopName)
+        ownerNameEditText = findViewById(R.id.editTextOwnerName)
+        phoneEditText = findViewById(R.id.editTextPhone)
+        addressEditText = findViewById(R.id.editTextAddress)
+        cnicEditText = findViewById(R.id.editTextCNIC)
+        signupButton = findViewById(R.id.signupButton)
+        backArrow = findViewById(R.id.backArrow)
 
-        backArrow.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
+        // Firebase initialization (commented)
+        // auth = FirebaseAuth.getInstance()
+        // db = FirebaseFirestore.getInstance()
+
+        signupButton.setOnClickListener {
+            val shopName = shopNameEditText.text.toString().trim()
+            val ownerName = ownerNameEditText.text.toString().trim()
+            val phone = phoneEditText.text.toString().trim()
+            val address = addressEditText.text.toString().trim()
+            val cnic = cnicEditText.text.toString().trim()
+
+            if (shopName.isEmpty() || ownerName.isEmpty() || phone.isEmpty()
+                || address.isEmpty() || cnic.isEmpty()
+            ) {
+                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Sign Up Successful!", Toast.LENGTH_SHORT).show()
+
+                // Firebase Firestore registration logic (commented)
+                /*
+                val supplierData = hashMapOf(
+                    "shopName" to shopName,
+                    "ownerName" to ownerName,
+                    "phone" to phone,
+                    "address" to address,
+                    "cnic" to cnic
+                )
+
+                db.collection("partSuppliers")
+                    .add(supplierData)
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "Registered to Firebase!", Toast.LENGTH_SHORT).show()
+                        // You can navigate to another screen here
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+                */
+            }
         }
 
-        nextButton.setOnClickListener {
-            val shop = shopEditText.text.toString().trim()
-            val delivery = deliveryEditText.text.toString().trim()
-
-            if (shop.isEmpty() || delivery.isEmpty()) {
-                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            Toast.makeText(this, "Data collected. Firebase integration pending.", Toast.LENGTH_SHORT).show()
-
-            // startActivity(Intent(this, NextActivity::class.java))
-
-            /*
-            val database = FirebaseDatabase.getInstance().getReference("Suppliers")
-            val supplierId = "generate_unique_id_or_use_auth_uid"
-            val supplierData = mapOf(
-                "shop" to shop,
-                "deliveryArea" to delivery
-            )
-
-            database.child(supplierId).setValue(supplierData)
-            */
+        backArrow.setOnClickListener {
+            finish() // close this activity
         }
     }
 }
