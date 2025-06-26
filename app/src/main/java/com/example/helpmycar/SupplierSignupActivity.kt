@@ -67,7 +67,7 @@ class SupplierSignupActivity : AppCompatActivity() {
                         .set(supplierData)
                         .addOnSuccessListener {
                             Toast.makeText(this, "Signup Successful", Toast.LENGTH_SHORT).show()
-                            startActivity(Intent(this, HomeActivity::class.java))
+                            startActivity(Intent(this, LoginActivity::class.java))
                             finish()
                         }
                         .addOnFailureListener { e ->

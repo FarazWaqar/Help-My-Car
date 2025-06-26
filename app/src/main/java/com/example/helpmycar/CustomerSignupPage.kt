@@ -75,7 +75,7 @@ class CustomerSignUpActivity : AppCompatActivity() {
                         .addOnSuccessListener {
                             Toast.makeText(this, "Signup successful!", Toast.LENGTH_SHORT).show()
                             // ✅ Go to Home or Dashboard
-                            startActivity(Intent(this, HomeActivity::class.java))
+                            startActivity(Intent(this, LoginActivity::class.java))
                             finish()
                         }
                         .addOnFailureListener {
