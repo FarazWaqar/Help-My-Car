@@ -45,11 +45,11 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation(libs.play.services.location)
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
-    // Google Sign-In (optional)
-    //implementation(libs.googleid)
-    //implementation(libs.androidx.credentials)
-    //implementation(libs.androidx.credentials.play.services.auth)
+    implementation("com.google.android.gms:play-services-maps:19.2.0")
 
     // Firebase Core Services
     implementation("com.google.firebase:firebase-auth:22.3.1")

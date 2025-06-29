@@ -1,0 +1,12 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText android:id="@+id/editName" android:hint="Name" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <EditText android:id="@+id/editPhone" android:hint="Phone no." android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <EditText android:id="@+id/editCarModel" android:hint="Car model" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <EditText android:id="@+id/editMileage" android:hint="Mileage" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <EditText android:id="@+id/editDailyDriving" android:hint="Daily driving" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+</LinearLayout>

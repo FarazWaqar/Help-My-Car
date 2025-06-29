@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="cnicText" type="id" />
+    <item name="workshopInfoText" type="id" />
+    <item name="expertiseText" type="id" />
+    <item name="navSettings" type="id" />
+    <item name="ratingCount" type="id" />
+    <item name="profilePic" type="id" />
+    <item name="addPicBtn" type="id" />
+</resources>

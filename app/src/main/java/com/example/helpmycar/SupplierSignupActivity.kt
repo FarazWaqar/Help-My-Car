@@ -59,10 +59,11 @@ class SupplierSignupActivity : AppCompatActivity() {
                         "phone" to phone,
                         "address" to address,
                         "cnic" to cnic,
-                        "email" to email
+                        "email" to email,
+                        "userType" to "Parts Supplier"
                     )
 
-                    db.collection("partSuppliers")
+                    db.collection("users")
                         .document(uid)
                         .set(supplierData)
                         .addOnSuccessListener {

@@ -75,7 +75,7 @@ class CarWashProviderRegistrationActivity : AppCompatActivity() {
                         "userType" to "carwash"
                     )
 
-                    firestore.collection("carWashProviders")
+                    firestore.collection("users")
                         .document(uid)
                         .set(carWashData)
                         .addOnSuccessListener {

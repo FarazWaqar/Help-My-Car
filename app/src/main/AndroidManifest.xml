@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
     
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Permissions -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -14,18 +17,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HelpMyCar"
         tools:targetApi="31">
-        <activity android:name=".LandingActivity"/>
-        <activity android:name="LoginActivity"/>
-        <activity android:name=".UserTypeSelectionActivity"/>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDw2SgsiYIsb7ZFp_ZxcU8ElEd3G6GQFuM" />
+
+        <activity android:name=".CustomerProfileActivity"/>
         <activity android:name=".CustomerSignUpActivity"/>
-        <activity android:name=".MechanicSignupActivity"/>
-        <activity android:name=".SupplierSignupActivity"/>
+        <activity android:name=".LandingActivity"/>
+        <activity android:name=".MechanicHomeActivity"/>
+        <activity android:name=".MechanicProfileActivity"/>
         <activity android:name=".CarWashProviderRegistrationActivity"/>
-        <activity android:name=".HomeActivity"/>
         <activity android:name=".ChatbotActivity"/>
+        <activity android:name=".CustomerHomeActivity"/>
+        <activity android:name=".LoginActivity"/>
         <activity android:name=".MaintenanceReminderActivity"/>
+        <activity android:name=".MechanicSignupActivity"/>
         <activity android:name=".NearbyMechanicsActivity"/>
         <activity android:name=".RequestServiceActivity"/>
+        <activity android:name=".SupplierSignupActivity"/>
+        <activity android:name=".UserTypeSelectionActivity"/>
+        <activity android:name=".MapsActivity"/>
         <activity
             android:name=".SplashActivity"
             android:exported="true">

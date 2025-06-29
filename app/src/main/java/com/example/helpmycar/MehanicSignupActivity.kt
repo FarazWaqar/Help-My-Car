@@ -74,10 +74,11 @@ class MechanicSignupActivity : AppCompatActivity() {
                             "workshop" to workshop,
                             "expertise" to expertise,
                             "email" to email,
-                            "profileImageUrl" to imageUrl
+                            "profileImageUrl" to imageUrl,
+                            "userType" to "mechanic"
                         )
 
-                        firestore.collection("Mechanics").document(uid)
+                        firestore.collection("users").document(uid)
                             .set(mechanicData)
                             .addOnSuccessListener {
                                 Toast.makeText(this, "Signup successful", Toast.LENGTH_SHORT).show()
