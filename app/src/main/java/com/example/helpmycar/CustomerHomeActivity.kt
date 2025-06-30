@@ -4,15 +4,13 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
+import android.widget.*
 import android.widget.Toast
 import androidx.annotation.RequiresPermission
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -33,6 +31,10 @@ class CustomerHomeActivity : AppCompatActivity() {
 
     private val LOCATION_PERMISSION_REQUEST = 111
 
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var locationCallback: LocationCallback? = null
+    private var isUpdatingLocation = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_customer_home)
@@ -49,59 +51,49 @@ class CustomerHomeActivity : AppCompatActivity() {
         navOffers = findViewById(R.id.navOffers)
         navProfile = findViewById(R.id.navProfile)
 
-        backArrow.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
-        }
+        backArrow.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        buttonChatbot.setOnClickListener { startActivity(Intent(this, ChatbotActivity::class.java)) }
+        buttonFindMechanics.setOnClickListener { startActivity(Intent(this, MapsActivity::class.java)) }
+        buttonRequestService.setOnClickListener { startActivity(Intent(this, RequestServiceActivity::class.java)) }
+        buttonMaintenanceReminder.setOnClickListener { startActivity(Intent(this, MaintenanceReminderActivity::class.java)) }
+        navHome.setOnClickListener { /* Already on Home */ }
+        navLogs.setOnClickListener { startActivity(Intent(this, CustomerProfileActivity::class.java)); finish() }
+        navOffers.setOnClickListener { startActivity(Intent(this, CustomerProfileActivity::class.java)); finish() }
+        navProfile.setOnClickListener { startActivity(Intent(this, CustomerProfileActivity::class.java)); finish() }
 
-        buttonChatbot.setOnClickListener {
-            startActivity(Intent(this, ChatbotActivity::class.java))
-        }
-        // NearbyMechanicsActivity
-        buttonFindMechanics.setOnClickListener {
-            startActivity(Intent(this, MapsActivity::class.java))
-        }
-        buttonRequestService.setOnClickListener {
-            startActivity(Intent(this, RequestServiceActivity::class.java))
-        }
-        buttonMaintenanceReminder.setOnClickListener {
-            startActivity(Intent(this, MaintenanceReminderActivity::class.java))
-        }
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-        // --- Button Nav Clicks ---
-        navHome.setOnClickListener {
-            // Already on Home
-        }
-        navLogs.setOnClickListener {
-            startActivity(Intent(this, CustomerProfileActivity::class.java))
-            finish()
-        }
-        navOffers.setOnClickListener {
-            startActivity(Intent(this, CustomerProfileActivity::class.java))
-            finish()
-        }
-        navProfile.setOnClickListener {
-            startActivity(Intent(this, CustomerProfileActivity::class.java))
-            finish()
-        }
-
-        // Location permission and update on open
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED) {
-            updateCustomerLocationInFirestore()
+        // Check for both FINE and COARSE permissions
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+            || ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        ) {
+            startLocationUpdates()
         } else {
             ActivityCompat.requestPermissions(
                 this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ),
                 LOCATION_PERMISSION_REQUEST
             )
         }
     }
 
     @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
-    private fun updateCustomerLocationInFirestore() {
-        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-            if (location != null) {
+    private fun startLocationUpdates() {
+        if (isUpdatingLocation) return
+        isUpdatingLocation = true
+
+        val locationRequest = LocationRequest.create().apply {
+            interval = 10000L // 10 seconds
+            fastestInterval = 5000L // 5 seconds
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult) {
+                val location = locationResult.lastLocation ?: return
                 val userId = FirebaseAuth.getInstance().currentUser?.uid
                 if (userId != null) {
                     val updates = mapOf(
@@ -111,14 +103,36 @@ class CustomerHomeActivity : AppCompatActivity() {
                     FirebaseFirestore.getInstance().collection("users")
                         .document(userId)
                         .update(updates)
-                        .addOnSuccessListener {
-                            // Optional: Toast.makeText(this, "Location Updated!", Toast.LENGTH_SHORT).show()
-                        }
-                        .addOnFailureListener {
-                            Toast.makeText(this, "Failed to update location", Toast.LENGTH_SHORT).show()
-                        }
+                    // No Toast spam
                 }
             }
+        }
+
+        fusedLocationClient.requestLocationUpdates(
+            locationRequest,
+            locationCallback!!,
+            mainLooper
+        )
+    }
+
+    private fun stopLocationUpdates() {
+        if (::fusedLocationClient.isInitialized && locationCallback != null) {
+            fusedLocationClient.removeLocationUpdates(locationCallback!!)
+            isUpdatingLocation = false
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopLocationUpdates()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+            || ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        ) {
+            startLocationUpdates()
         }
     }
 
@@ -127,7 +141,7 @@ class CustomerHomeActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == LOCATION_PERMISSION_REQUEST) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                updateCustomerLocationInFirestore()
+                startLocationUpdates()
             } else {
                 Toast.makeText(this, "Location permission required to update your location.", Toast.LENGTH_SHORT).show()
             }
