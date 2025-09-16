@@ -144,6 +144,7 @@ class CustomerSignUpActivity : AppCompatActivity() {
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }
+            //this is the test commit
             .addOnFailureListener { err ->
                 setLoading(false)
                 // If you see PERMISSION_DENIED here -> publish Firestore rules & ensure project matches
