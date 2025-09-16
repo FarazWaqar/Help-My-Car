@@ -29,9 +29,6 @@ class CustomerProfileActivity : AppCompatActivity() {
         mileageText = findViewById(R.id.mileageText)
         dailyDrivingText = findViewById(R.id.dailyDrivingText)
 
-        findViewById<ImageView>(R.id.backBtn).setOnClickListener { finish() }
-        findViewById<Button>(R.id.editBtn).setOnClickListener { showEditDialog() }
-
         // Bottom nav click listeners
         findViewById<Button>(R.id.navHome).setOnClickListener {
             startActivity(Intent(this, CustomerHomeActivity::class.java))
@@ -45,7 +42,7 @@ class CustomerProfileActivity : AppCompatActivity() {
             startActivity(Intent(this, CustomerHomeActivity::class.java))
             finish()
         }
-        findViewById<Button>(R.id.navProfile).setOnClickListener { } // already here
+        findViewById<Button>(R.id.navProfile).setOnClickListener {} // already here
 
         fetchProfile()
     }

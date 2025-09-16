@@ -104,15 +104,13 @@
             <!-- Card 2: Find Nearby Mechanics -->
             <!-- Card 2: Find Nearby Mechanics -->
             <!-- Card 2: Find Nearby Mechanics -->
-            <!-- Find Nearby Mechanics card -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp"
                 app:cardBackgroundColor="#2196F3"
-                android:layout_marginHorizontal="32dp"
-                android:layout_marginTop="16dp">
+                android:layout_marginBottom="16dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -138,6 +136,41 @@
                         android:layout_marginTop="12dp"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+<!--            &lt;!&ndash; Find Nearby Mechanics card &ndash;&gt;-->
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:cardCornerRadius="16dp"-->
+<!--                app:cardElevation="4dp"-->
+<!--                app:cardBackgroundColor="#2196F3"-->
+<!--                android:layout_marginHorizontal="32dp"-->
+<!--                android:layout_marginTop="16dp">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:padding="16dp">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Find Nearby Mechanics"-->
+<!--                        android:textColor="@android:color/white"-->
+<!--                        android:textSize="18sp"-->
+<!--                        android:textStyle="bold"/>-->
+
+<!--                    <Button-->
+<!--                        android:id="@+id/buttonFindMechanics"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Find Nearby Mechanics"-->
+<!--                        android:background="@android:color/white"-->
+<!--                        android:textColor="#2ML196F3"-->
+<!--                        android:layout_marginTop="12dp"/>-->
+<!--                </LinearLayout>-->
+<!--            </androidx.cardview.widget.CardView>-->
 
             <!-- Card 3: Request a Service -->
             <androidx.cardview.widget.CardView
