@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    
+
+    <!-- Network & location (you already use Maps & Location) -->
     <uses-permission android:name="android.permission.INTERNET"/>
-    <!-- Permissions -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
@@ -18,10 +18,12 @@
         android:theme="@style/Theme.HelpMyCar"
         tools:targetApi="31">
 
+        <!-- (Optional) Only if you actually use Google Maps in your app -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDw2SgsiYIsb7ZFp_ZxcU8ElEd3G6GQFuM" />
 
+        <!-- Your activities (exported only for the launcher) -->
         <activity android:name=".CustomerProfileActivity"/>
         <activity android:name=".CustomerSignUpActivity"/>
         <activity android:name=".LandingActivity"/>
@@ -38,16 +40,15 @@
         <activity android:name=".SupplierSignupActivity"/>
         <activity android:name=".UserTypeSelectionActivity"/>
         <activity android:name=".MapsActivity"/>
+
         <activity
             android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

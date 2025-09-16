@@ -75,9 +75,15 @@ class MechanicSignupActivity : AppCompatActivity() {
                             "expertise" to expertise,
                             "email" to email,
                             "profileImageUrl" to imageUrl,
-                            "userType" to "mechanic"
+                            "userType" to "mechanic",
+                            // NEW defaults so UI shows rich data
+                            "level" to "Expert",
+                            "rating" to 4.6,
+                            "reviewsCount" to 15,
+                            // location defaults (will be updated by your MechanicHomeActivity)
+                            "latitude" to 0.0,
+                            "longitude" to 0.0
                         )
-
                         firestore.collection("users").document(uid)
                             .set(mechanicData)
                             .addOnSuccessListener {
@@ -89,6 +95,7 @@ class MechanicSignupActivity : AppCompatActivity() {
                                 Toast.makeText(this, "Failed to save data", Toast.LENGTH_SHORT).show()
                             }
                     }
+
 
                     if (selectedImageUri != null) {
                         val imageRef = storage.reference.child("mechanic_profiles/$uid.jpg")

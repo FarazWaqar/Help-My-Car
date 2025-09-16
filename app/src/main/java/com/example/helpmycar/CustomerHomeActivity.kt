@@ -53,7 +53,10 @@ class CustomerHomeActivity : AppCompatActivity() {
 
         backArrow.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
         buttonChatbot.setOnClickListener { startActivity(Intent(this, ChatbotActivity::class.java)) }
-        buttonFindMechanics.setOnClickListener { startActivity(Intent(this, MapsActivity::class.java)) }
+        buttonFindMechanics.setOnClickListener {
+            startActivity(Intent(this, NearbyMechanicsActivity::class.java))
+        }
+
         buttonRequestService.setOnClickListener { startActivity(Intent(this, RequestServiceActivity::class.java)) }
         buttonMaintenanceReminder.setOnClickListener { startActivity(Intent(this, MaintenanceReminderActivity::class.java)) }
         navHome.setOnClickListener { /* Already on Home */ }

@@ -12,7 +12,7 @@
         android:orientation="vertical"
         android:background="@android:color/white">
 
-        <!-- 🔵 Top Bar (Full Width) -->
+        <!-- Top Bar -->
         <LinearLayout
             android:id="@+id/topBar"
             android:layout_width="match_parent"
@@ -26,6 +26,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/back_arrow"
+                android:contentDescription="@string/back"
                 android:layout_gravity="center_vertical" />
 
             <TextView
@@ -39,14 +40,13 @@
                 android:layout_gravity="center_vertical" />
         </LinearLayout>
 
-        <!-- 🧱 Main Form with Padding -->
+        <!-- Main Form -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="16dp">
 
-            <!-- Logo -->
             <ImageView
                 android:id="@+id/logo"
                 android:layout_width="150dp"
@@ -56,7 +56,6 @@
                 android:src="@drawable/logo"
                 android:scaleType="centerInside" />
 
-            <!-- Input Fields -->
             <EditText
                 android:id="@+id/editTextName"
                 android:layout_width="match_parent"
@@ -130,9 +129,19 @@
                 android:background="@drawable/edittext_rounded_border"
                 android:padding="10dp"
                 android:layout_marginTop="10dp" />
+
+            <!-- Small inline progress spinner -->
+            <ProgressBar
+                android:id="@+id/progress"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="12dp"
+                android:visibility="gone"/>
         </LinearLayout>
 
-        <!-- 🟢 Bottom Button (Full Width) -->
+        <!-- Bottom Button -->
         <Button
             android:id="@+id/nextButton"
             android:layout_width="match_parent"
